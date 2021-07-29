@@ -432,13 +432,11 @@ public class UIIntentsImpl extends UIIntents {
 
     @Override
     public PendingIntent getPendingIntentForMarkingAsRead(final Context context,
-            final ConversationIdSet conversationIdSet, final int requestCode) {
+            final String conversationId, final int requestCode) {
         final Intent intent = new Intent(context, NotificationReceiver.class);
         intent.setAction(ACTION_MARK_AS_READ);
-        if (conversationIdSet != null) {
-            intent.putExtra(UI_INTENT_EXTRA_CONVERSATION_ID_SET,
-                    conversationIdSet.getDelimitedString());
-        }
+        intent.putExtra(UI_INTENT_EXTRA_CONVERSATION_ID,
+                    conversationId);
         return PendingIntent.getBroadcast(context,
                 requestCode, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
